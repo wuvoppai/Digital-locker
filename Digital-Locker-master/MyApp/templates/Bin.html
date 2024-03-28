@@ -1,0 +1,67 @@
+{% extends 'InnerLayout.html' %}
+
+{% block head %}
+<title>Digital Locker - {{username}}</title>
+{% endblock %}
+
+{% block content %}
+<table class="table table-hover" style="font-size:20px;">
+  <thead>
+    <tr>
+      <th scope="col">File Name</th>
+      <th scope="col">Uploaded On</th>
+      <th scope="col">Restore</th>
+	  <th scope="col">Delete Forever</th>
+	  <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for i in filedata %}
+<tr>
+<th scope="row"><a href="{{i.file.url}}" target="_blank">{{i.file_name}}</a></th>
+<td>{{i.date}}</td>
+<td>
+<form method="post" action="/Restore/">
+{% csrf_token %}
+<input type="number" name="documentid" value="{{i.id}}" hidden>
+<button type="submit" class="btn btn-link" style="font-size:20px;"><i class="fa fa-refresh"></i></button>
+</form>
+</td>
+<td>
+<form method="post" action="/DeleteForever/">
+{% csrf_token %}
+<input type="number" name="id" value="{{i.id}}" hidden />
+<button type="submit" class="btn btn-link" style="font-size:20px;"><i class="fa fa-trash"></i></button>
+</form>
+</td>
+<td>
+<button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalCenter{{i.id}}"><i class="fa fa-info-circle"></i></button>
+<div class="modal fade" id="exampleModalCenter{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<table style="border:none;">
+<tr><td>Name</td><td>{{i.file_name}}</td></tr>
+<tr><td>Size</td><td>{{i.file.size}} Bytes</td></tr>
+<tr><td>Uploaded On</td><td>{{i.date}}</td></tr>
+<tr><td>Username</td><td>{{username}}</td></tr>
+</table>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+</div>
+</div>
+</div>
+</div>
+</td>
+</tr>
+{% endfor %} 
+</tbody>
+</table>
+{% endblock %}

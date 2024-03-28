@@ -1,0 +1,102 @@
+{% extends 'InnerLayout.html' %}
+
+{% block head %}
+<title>Digital Locker - {{username}}</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<div><img src="{{userdata.profile.url}}" width="100%" height="200px"/></div>
+<br/>
+<button type="button" class="btn btn-primary" style="width:100%;" data-toggle="modal" data-target="#profileModalCenter">Edit Profile Picture</button>
+<div class="modal fade" id="profileModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLongTitle">Change Profile Picture</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<form method="post" action="/UpdateProfile/" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="form-group">
+<input type="file" class="form-control" name="pic" required>
+</div>
+<button type="submit" class="btn btn-primary">Change</button>
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<br/><br/>
+<button type="button" class="btn btn-primary" style="width:100%;" data-toggle="modal" data-target="#passwordModalCenter">Change Password</button>
+<div class="modal fade" id="passwordModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLongTitle">Change Password</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<form method="post" action="/ChangePassword/">
+{% csrf_token %}
+<div class="form-group">
+<input type="password" class="form-control" name="pass" placeholder="New Password" required>
+</div>
+<button type="submit" class="btn btn-primary">Change Password</button>
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-8">
+<div style="font-size:25px;">{{userdata.name}}</div>
+<div style="font-size:22px;color:blue;"><img src="../static/Logo.jpg"/ width="20px" height="20px"> @{{userdata.username}}</div><br/>
+<div style="font-size:25px;">About</div>
+<div style="font-size:20px;">
+<table class="table table-borderless">
+  <tbody>
+    <tr>
+      <td>Email</td>
+      <td style="color:blue;">{{userdata.email}}</td>
+    </tr>
+    <tr>
+      <td>Contact</td>
+      <td style="color:blue;">{{userdata.mobile}}</td>
+    </tr>
+    <tr>
+      <td>Age</td>
+      <td style="color:blue;">{{userdata.age}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<form method="post" action="/UpdateDetails/">
+{% csrf_token %}
+<fieldset style="padding:20px;border:2px solid black;">
+<legend style="text-align:center;"><u>Update Contact Details</u></legend>
+<div class="form-group">
+<input type="email" class="form-control" name="email" value="{{userdata.email}}" required>
+<input type="number" class="form-control" name="mobile" value="{{userdata.mobile}}" required>
+</div>
+<button type="submit" class="btn btn-primary">Update Details</button>
+</fieldset>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

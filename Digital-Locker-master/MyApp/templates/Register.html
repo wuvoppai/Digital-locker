@@ -1,0 +1,52 @@
+{% extends 'Layout.html' %}
+
+{% block head %}
+<title>Digital Locker - Register</title>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+<br/><br/><br/>
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-4">
+<form method="post" action="/CompleteRegistration/" style="background-color:#F1EFEF;padding:45px;text-align:center;border-radius:10px;" enctype="multipart/form-data">
+{% csrf_token %}
+<h1>Sign Up</h1><br/>
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Enter your name" name="name" style="box-shadow:4px 4px 5px grey;border-radius:15px;font-size:20px;">
+</div><br/>
+<div class="form-group">
+<input type="age" class="form-control" placeholder="Enter your age" name="age" style="box-shadow:4px 4px 5px grey;border-radius:15px;font-size:20px;">
+</div><br/>
+<div class="form-group">
+<select class="form-control" name="gender" style="box-shadow:4px 4px 5px grey;border-radius:15px;font-size:20px;">
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Others">Others</option>
+</select>
+</div><br/>
+<div class="form-group">
+<input type="email" class="form-control" placeholder="Enter your Email-ID" name="email" style="box-shadow:4px 4px 5px grey;border-radius:15px;font-size:20px;">
+</div><br/>
+<div class="form-group">
+<input type="number" class="form-control" placeholder="Enter your mobile number" name="mobile" style="box-shadow:4px 4px 5px grey;border-radius:15px;font-size:20px;">
+</div><br/>
+<div class="form-group">
+<label>Upload a Profile Picture</label>
+<input type="file" class="form-control" name="profile" style="box-shadow:4px 4px 5px grey;border-radius:15px;font-size:20px;">
+</div><br/>
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Enter Username" name="username" style="box-shadow:4px 4px 5px grey;border-radius:15px;font-size:20px;">
+</div><br/>
+<div class="form-group">
+<input type="password" class="form-control" placeholder="Enter Password" name="password" style="box-shadow:4px 4px 5px grey;border-radius:15px;font-size:20px;">
+</div><br/>
+<button type="submit" class="btn btn-default" style="background-color:magenta;width:120px;box-shadow:4px 4px 5px grey;border-radius:20px;color:white;font-size:20px;font-weight:bold;">Register</button>
+</form>
+</div>
+<div class="col-md-4"></div>
+</div>
+<br/><br/>
+</div>
+{% endblock %}
